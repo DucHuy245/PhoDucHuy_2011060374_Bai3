@@ -1,8 +1,10 @@
 ﻿@model PhoDucHuy_2011060374_Bai3.ViewModels.CoursesViewModel
 @{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Attending";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<h2>Attending</h2>
 <ul class="course">
     @foreach (var course in Model.UpcomingCourses)
     {
@@ -20,19 +22,16 @@
                     @course.Lecturer.Name
                     @if (Model.ShowAction)
                     {
-                        @*<a href="#" class="">Follow</a>*@
                         <button class="btn btn-default btn-sm js-toggle-follow" data-user-id="@course.Lecturer.Id">Follow</button>
                     }
                 </span>
-                <div class="">
-                    <span class="category">
-                        @course.Category.Name
-                    </span>
-                    @if (Model.ShowAction)
-                    {
-                        <button data-course-id="@course.Id" class="btn btn-default btn-sm js-toggle-attendance">Going?</button>
-                    }
-                </div>
+                <span class="category">
+                    @course.Category.Name
+                </span>
+                @if (Model.ShowAction)
+                {
+                    <button data-course-id="@course.Id" class="btn btn-default btn-sm js-toggle-attendance">Going?</button>
+                }
             </div>
         </li>
     }
@@ -60,7 +59,7 @@
                 $.post("/api/followings", { followeeId: button.attr("data-user-id") })
                     .done(function () {
                         button.text("Following");
-                  
+
                     })
                     .fail(function () {
                         alert("Something failed!");
@@ -69,4 +68,3 @@
         });
     </script>
 }
-
